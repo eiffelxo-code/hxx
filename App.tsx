@@ -484,14 +484,26 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
               <RingLabel label="角色智能体" color="violet" className="top-1/2 [transform:translate(-50%,-50%)_rotateX(-60deg)]" />
               
               <div className="absolute top-0 left-0 w-full h-full animate-spin-slow [transform-style:preserve-3d]" style={{ animationDuration: '80s', animationDirection: 'reverse' }}>
-                <MatrixNode label="销售" angle={0} color="violet" />
-                <MatrixNode label="导游" angle={30} color="violet" onClick={() => window.open(window.location.origin + window.location.pathname + '?role=guide', '_blank')} />
-                <MatrixNode label="线路设计师" angle={330} color="violet" />
-                <MatrixNode label="行业专家" angle={90} color="violet" />
-                <MatrixNode label="气象助手" angle={110} color="violet" />
-                <MatrixNode label="客房管家" angle={180} color="violet" />
-                <MatrixNode label="餐饮部" angle={210} color="violet" />
-                <MatrixNode label="前台接待" angle={150} color="violet" />
+                {[
+                  { label: "销售", angle: 0, prompt: "苗族服饰，热情开朗" },
+                  { label: "导游", angle: 30, prompt: "布依族服饰，专业干练", action: () => window.open(window.location.origin + window.location.pathname + '?role=guide', '_blank') },
+                  { label: "线路设计师", angle: 330, prompt: "现代休闲装搭配苗族银饰，创意时尚" },
+                  { label: "行业专家", angle: 90, prompt: "中山装搭配蜡染元素，沉稳睿智" },
+                  { label: "气象助手", angle: 110, prompt: "科技感服饰融入水族马尾绣，灵动活泼" },
+                  { label: "客房管家", angle: 180, prompt: "侗族服饰，亲切温和" },
+                  { label: "餐饮部", angle: 210, prompt: "厨师服搭配彝族图案，专业整洁" },
+                  { label: "前台接待", angle: 150, prompt: "职业装搭配土家族西兰卡普，端庄大方" }
+                ].map(role => (
+                  <MatrixNode 
+                    key={role.label}
+                    label={role.label} 
+                    angle={role.angle} 
+                    color="violet" 
+                    onClick={role.action}
+                    image={`https://api.dicebear.com/9.x/adventurer/svg?seed=${role.label}&backgroundColor=b6e3f4`}
+                    data-prompt={`Q版卡通写实3D数字人，${role.prompt}，娃娃脸大眼睛，圆润线条，写实皮肤质感，贵州少数民族风情`}
+                  />
+                ))}
               </div>
             </div>
 
@@ -1334,7 +1346,7 @@ const RingLabel = ({ label, color, className, onClick }: { label: string, color:
 };
 
 // --- Helper: Matrix Node (Orbiting) ---
-const MatrixNode = ({ label, angle, color = 'slate', isCore, onClick, image, isLarge }: any) => {
+const MatrixNode = ({ label, angle, color = 'slate', isCore, onClick, image, isLarge, ...props }: any) => {
   // Calculate position on ellipse
   const rad = (angle * Math.PI) / 180;
   
@@ -1368,9 +1380,10 @@ const MatrixNode = ({ label, angle, color = 'slate', isCore, onClick, image, isL
         e.stopPropagation();
         if (onClick) onClick(e);
       }}
+      {...props}
     >
       {image && (
-        <div className="w-5 h-5 rounded-full overflow-hidden border border-white/20 shrink-0">
+        <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 shrink-0 bg-white shadow-sm">
           <img src={image} alt={label} className="w-full h-full object-cover" />
         </div>
       )}
