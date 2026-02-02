@@ -399,6 +399,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
   const [currentDesign, setCurrentDesign] = useState<'xiaoxi' | 'agency' | 'spot' | 'living' | 'gov' | 'hotel' | 'dining' | 'org' | 'func' | 'role'>('xiaoxi');
   const [activeOrgTab, setActiveOrgTab] = useState<'saas' | 'portal' | 'marketplace'>('saas');
   const [activeRoleTab, setActiveRoleTab] = useState<'assistant' | 'digital_employee'>('assistant');
+  const [activeFuncTab, setActiveFuncTab] = useState<'decision' | 'assistant'>('decision');
 
   const openExternal = (url: string) => window.open(url, '_blank', 'noopener,noreferrer');
 
@@ -437,7 +438,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
           <div className={`relative w-full max-w-5xl h-[700px] perspective-[2000px] transition-all duration-700 ease-in-out ${isExpanded ? 'scale-[0.6] -translate-x-[50%] -translate-y-10' : ''}`} onClick={(e) => e.stopPropagation()}>
             
             {/* A. 顶层：总入口核心 */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50 w-64 text-center cursor-pointer" onClick={(e) => {
+            <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-50 w-64 text-center cursor-pointer" onClick={(e) => {
                 e.stopPropagation();
                 setCurrentDesign('xiaoxi');
                 setIsExpanded(!isExpanded);
@@ -445,7 +446,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
               <div className="bg-gradient-to-b from-blue-500 to-indigo-600 p-6 rounded-2xl shadow-xl shadow-indigo-200 border-b-4 border-indigo-800 transform hover:scale-105 transition-transform duration-500">
                 <img src={huangxiaoxiImg2} alt="黄小西" className="w-16 h-16 mx-auto mb-2 rounded-full border-2 border-white/50" />
                 <h4 className="text-white font-black text-lg">黄小西</h4>
-                <p className="text-indigo-100 text-[10px] mt-1">全省旅游行程服务总入口</p>
+                <p className="text-indigo-100 text-[10px] mt-1">统一入口与总调度，负责全局层面的多智能体协同</p>
               </div>
               {/* 连接线 */}
               <div className="absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-indigo-500 to-transparent"></div>
@@ -484,26 +485,14 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
               <RingLabel label="角色智能体" color="violet" className="top-1/2 [transform:translate(-50%,-50%)_rotateX(-60deg)]" />
               
               <div className="absolute top-0 left-0 w-full h-full animate-spin-slow [transform-style:preserve-3d]" style={{ animationDuration: '80s', animationDirection: 'reverse' }}>
-                {[
-                  { label: "销售", angle: 0, prompt: "苗族服饰，热情开朗" },
-                  { label: "导游", angle: 30, prompt: "布依族服饰，专业干练", action: () => window.open(window.location.origin + window.location.pathname + '?role=guide', '_blank') },
-                  { label: "线路设计师", angle: 330, prompt: "现代休闲装搭配苗族银饰，创意时尚" },
-                  { label: "行业专家", angle: 90, prompt: "中山装搭配蜡染元素，沉稳睿智" },
-                  { label: "气象助手", angle: 110, prompt: "科技感服饰融入水族马尾绣，灵动活泼" },
-                  { label: "客房管家", angle: 180, prompt: "侗族服饰，亲切温和" },
-                  { label: "餐饮部", angle: 210, prompt: "厨师服搭配彝族图案，专业整洁" },
-                  { label: "前台接待", angle: 150, prompt: "职业装搭配土家族西兰卡普，端庄大方" }
-                ].map(role => (
-                  <MatrixNode 
-                    key={role.label}
-                    label={role.label} 
-                    angle={role.angle} 
-                    color="violet" 
-                    onClick={role.action}
-                    image={`https://api.dicebear.com/9.x/adventurer/svg?seed=${role.label}&backgroundColor=b6e3f4`}
-                    data-prompt={`Q版卡通写实3D数字人，${role.prompt}，娃娃脸大眼睛，圆润线条，写实皮肤质感，贵州少数民族风情`}
-                  />
-                ))}
+                <MatrixNode label="销售" angle={0} color="violet" />
+                <MatrixNode label="导游" angle={30} color="violet" onClick={() => window.open(window.location.origin + window.location.pathname + '?role=guide', '_blank')} />
+                <MatrixNode label="线路设计师" angle={330} color="violet" />
+                <MatrixNode label="行业专家" angle={90} color="violet" />
+                <MatrixNode label="气象助手" angle={110} color="violet" />
+                <MatrixNode label="客房管家" angle={180} color="violet" />
+                <MatrixNode label="餐饮部" angle={210} color="violet" />
+                <MatrixNode label="前台接待" angle={150} color="violet" />
               </div>
             </div>
 
@@ -551,7 +540,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                      {currentDesign === 'org' && (
                          <>
                             <h3 className="text-2xl font-black text-indigo-600 flex items-center gap-3"><Layers size={28}/> 组织端智能体 · 数字化中枢</h3>
-                            <p className="text-slate-500 text-lg leading-relaxed">为各类旅游组织提供全流程、低门槛的数字化转型方案，实现跨层级、多角色的智能协同。</p>
+                            <p className="text-slate-500 text-lg leading-relaxed">根据不同组织的业务类型，以标准化方式提供核心业务能力</p>
                             <div className="bg-slate-50 rounded-3xl p-4 border border-slate-100">
                                <h4 className="font-bold text-slate-800 mb-4 px-3 flex items-center gap-2 text-sm uppercase tracking-widest text-slate-400">
                                  组织端共性能力 (点击切换预览)
@@ -1270,40 +1259,42 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                               </div>
                            </div>
 
-                           <div className="grid grid-cols-1 gap-8">
-                              {[
-                                 { 
-                                    title: '智能决策与分析支撑', 
-                                    color: 'text-emerald-600',
-                                    bg: 'bg-emerald-50',
-                                    items: [
-                                       { n: 'BI 业务实时看板', i: BarChart3, d: '基于真实交易数据的 AI 辅助决策' },
-                                       { n: '智能营销触发器', i: Zap, d: '根据库存自动触发优惠投放' },
-                                       { n: '舆情监控插件', i: Search, d: '全网评价研判与应对建议生成' }
-                                    ]
-                                 },
-                                 { 
-                                    title: '安全合规与基础设施', 
-                                    color: 'text-slate-600',
-                                    bg: 'bg-slate-50',
-                                    items: [
-                                       { n: '敏感数据沙箱', i: Lock, d: '确保 MCP 调用过程的数据安全' },
-                                       { n: 'Multi-Agent 标准协议', i: Layers, d: '支持异构系统智能体协同交互' },
-                                       { n: '知识库增强系统', i: Database, d: '业务 SOP 与专业知识 RAG 挂载' }
-                                    ]
-                                 }
-                              ].map((section, idx) => (
-                                 <div key={idx} className="space-y-8">
-                                    <div className={`text-sm font-black uppercase tracking-[0.4em] ${section.color} flex items-center gap-3`}>
-                                       <div className={`w-2.5 h-2.5 rounded-full ${section.color.replace('text-', 'bg-')}`}></div>
-                                       {section.title}
+                           <div className="flex justify-center">
+                              <div className="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1">
+                                  <button 
+                                      onClick={() => setActiveFuncTab('decision')}
+                                      className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${activeFuncTab === 'decision' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-200/50'}`}
+                                  >
+                                      <div className={`w-2 h-2 rounded-full ${activeFuncTab === 'decision' ? 'bg-teal-500' : 'bg-slate-300'}`}></div>
+                                      智能决策与分析
+                                  </button>
+                                  <button 
+                                      onClick={() => setActiveFuncTab('assistant')}
+                                      className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${activeFuncTab === 'assistant' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-200/50'}`}
+                                  >
+                                      <div className={`w-2 h-2 rounded-full ${activeFuncTab === 'assistant' ? 'bg-indigo-500' : 'bg-slate-300'}`}></div>
+                                      辅助旅游从业人员
+                                  </button>
+                              </div>
+                           </div>
+
+                           <div className="min-h-[400px]">
+                              {activeFuncTab === 'decision' && (
+                                 <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+                                    <div className="text-sm font-black uppercase tracking-[0.4em] text-emerald-600 flex items-center gap-3">
+                                       <div className="w-2.5 h-2.5 rounded-full bg-emerald-600"></div>
+                                       智能决策与分析支撑
                                        <div className="flex-1 h-px bg-slate-100 ml-3"></div>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                       {section.items.map((item, i) => (
+                                       {[
+                                          { n: 'BI 业务实时看板', i: BarChart3, d: '基于真实交易数据的 AI 辅助决策' },
+                                          { n: '智能营销触发器', i: Zap, d: '根据库存自动触发优惠投放' },
+                                          { n: '舆情监控插件', i: Search, d: '全网评价研判与应对建议生成' }
+                                       ].map((item, i) => (
                                           <div key={i} className="flex flex-col gap-4 p-6 rounded-[2.5rem] bg-white border border-slate-100 hover:border-teal-500/30 hover:shadow-xl hover:shadow-teal-900/5 transition-all cursor-pointer group relative isolate overflow-hidden">
                                              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-teal-50/50 to-transparent -z-10 rounded-bl-[3rem]"></div>
-                                             <div className={`w-12 h-12 rounded-xl ${section.bg} flex items-center justify-center ${section.color} group-hover:scale-110 transition-transform shadow-sm`}>
+                                             <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform shadow-sm">
                                                 <item.i size={24} />
                                              </div>
                                              <div className="space-y-2">
@@ -1314,7 +1305,37 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                                        ))}
                                     </div>
                                  </div>
-                              ))}
+                              )}
+
+                              {activeFuncTab === 'assistant' && (
+                                 <div className="flex flex-col items-center gap-8 animate-in fade-in slide-in-from-right-4 duration-300">
+                                    <div className="grid grid-cols-2 gap-6 w-full max-w-[700px]">
+                                       <div className="bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm group">
+                                          <ImageWithLoader 
+                                             src={fuzhudaoyouImg} 
+                                             alt="辅助导游" 
+                                             className="w-full h-auto" 
+                                             priority="high"
+                                          />
+                                       </div>
+                                       <div className="bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm group">
+                                          <ImageWithLoader 
+                                             src={fuzhukefuImg} 
+                                             alt="辅助客服" 
+                                             className="w-full h-auto" 
+                                             priority="high"
+                                          />
+                                       </div>
+                                    </div>
+                                    <div className="text-center space-y-3">
+                                       <h4 className="text-3xl font-black text-slate-800">辅助旅游从业人员</h4>
+                                       <p className="text-indigo-600 font-bold text-lg">数字化助手 · 专业知识支持 · 方案快速生成</p>
+                                       <p className="text-slate-500 leading-relaxed max-w-2xl">
+                                          为导游、线路设计师等从业者提供实时的专业知识库支持，辅助快速生成行程方案，并实现多方任务的高效协同。
+                                       </p>
+                                    </div>
+                                 </div>
+                              )}
                            </div>
                         </div>
                      )}
@@ -1346,7 +1367,7 @@ const RingLabel = ({ label, color, className, onClick }: { label: string, color:
 };
 
 // --- Helper: Matrix Node (Orbiting) ---
-const MatrixNode = ({ label, angle, color = 'slate', isCore, onClick, image, isLarge, ...props }: any) => {
+const MatrixNode = ({ label, angle, color = 'slate', isCore, onClick, image, isLarge }: any) => {
   // Calculate position on ellipse
   const rad = (angle * Math.PI) / 180;
   
@@ -1380,10 +1401,9 @@ const MatrixNode = ({ label, angle, color = 'slate', isCore, onClick, image, isL
         e.stopPropagation();
         if (onClick) onClick(e);
       }}
-      {...props}
     >
       {image && (
-        <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 shrink-0 bg-white shadow-sm">
+        <div className="w-5 h-5 rounded-full overflow-hidden border border-white/20 shrink-0">
           <img src={image} alt={label} className="w-full h-full object-cover" />
         </div>
       )}
