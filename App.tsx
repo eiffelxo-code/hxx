@@ -1443,7 +1443,7 @@ const PasswordLock: React.FC<{ onUnlock: () => void }> = ({ onUnlock }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'glsw123456') {
+    if (password === 'glsw@1234') {
       onUnlock();
       localStorage.setItem('page_unlocked', 'true');
     } else {
