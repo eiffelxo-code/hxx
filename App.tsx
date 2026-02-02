@@ -74,6 +74,7 @@ const ImageWithLoader: React.FC<{
 import hxxQrCode from './image/huangxiaoxi.png';
 import jingquQrCode from './image/jingqu.jpg';
 import jingquGuihuaImg from './image/jingquxiugai.png';
+import jingquNewImg from './image/景区.png';
 import jingquImg1 from './image/jingqu1.png';
 import jingquImg2 from './image/jingqu2.png';
 import datangmaQrCode from './image/datangma.png';
@@ -566,7 +567,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                                   />
                                   <DesignFeature 
                                     icon={LayoutDashboard} 
-                                    t="门户式首页设计" 
+                                    t="多智能体式首页设计" 
                                     d="主动式服务+多角色智能体，根据角色与场景动态生成专属首页" 
                                     active={activeOrgTab === 'portal'}
                                     onClick={() => setActiveOrgTab('portal')}
@@ -796,9 +797,14 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                                  <DesignFeature icon={FileSearch} t="智能问策" d="政策解读、地方性法规撰写辅助、资源规划建议。" />
                               </ul>
                            </div>
-                           <button onClick={() => openExternal('https://glsw-provincescreen-test.aihuangxiaoxi.com/admin/#/index')} className="w-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-5 rounded-2xl font-black shadow-xl flex items-center justify-center gap-3 group">
-                              进入政府智能体 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                           </button>
+                           <div className="flex gap-4">
+                              <button onClick={() => openExternal('https://glsw-provincescreen-test.aihuangxiaoxi.com/admin/#/index')} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-8 py-5 rounded-2xl font-black shadow-xl flex items-center justify-center gap-3 group">
+                                 进入政府智能体 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                              </button>
+                              <button onClick={() => openExternal('https://glsw-provincescreen-test.aihuangxiaoxi.com/h5/#/')} className="bg-white hover:bg-slate-50 text-blue-600 border-2 border-blue-100 px-6 py-5 rounded-2xl font-black shadow-lg flex items-center justify-center gap-2 group whitespace-nowrap">
+                                 移动端 <Smartphone size={20} className="group-hover:scale-110 transition-transform" />
+                              </button>
+                           </div>
                         </>
                      )}
 
@@ -954,7 +960,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                                  </div>
                                  <div className="mt-8 text-center space-y-4">
                                     <div className="space-y-2">
-                                       <div className="text-3xl font-black text-slate-800 tracking-tight">门户式首页设计</div>
+                                       <div className="text-3xl font-black text-slate-800 tracking-tight">多智能体式首页设计</div>
                                        <div className="text-indigo-600 font-bold tracking-[0.2em] uppercase text-sm">主动式服务+多角色智能体，根据角色与场景动态生成专属首页</div>
                                     </div>
                                  </div>
@@ -1242,21 +1248,15 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
 
                                        <div className="relative group rounded-[2.5rem] overflow-hidden border-8 border-slate-50 shadow-2xl bg-slate-100 flex-1 min-h-[400px]">
                                           <img 
-                                             src={jingquGuihuaImg} 
+                                             src={jingquNewImg} 
                                              alt="景区规划" 
                                              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
                                           />
-                                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
-                                             <div className="text-left">
-                                                <p className="text-white text-base font-bold">云峰屯堡 · 2026 数智愿景</p>
-                                                <p className="text-white/70 text-[10px]">AI 伴游 + AR 沉浸式导览规划效果图</p>
-                                             </div>
-                                          </div>
                                        </div>
                                     </div>
 
                                     <button 
-                                       onClick={() => openExternal('https://arifinfirman788-blip.github.io/JingQu/')}
+                                       onClick={() => openExternal('https://marsnowine-create.github.io/JQagent0122/')}
                                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-5 rounded-[2rem] font-black shadow-xl shadow-emerald-200 transition-all flex items-center justify-center gap-4 group mt-2"
                                     >
                                        <span className="text-lg">进入景区智能体规划设计</span>
@@ -2800,6 +2800,12 @@ const App: React.FC = () => {
                                           className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-black flex items-center gap-3 shadow-xl transition-all group"
                                        >
                                           进入政府智能体 <ArrowRight size={20} className="group-hover:translate-x-1" />
+                                       </button>
+                                       <button
+                                          onClick={() => openExternal('https://glsw-provincescreen-test.aihuangxiaoxi.com/h5/#/')}
+                                          className="bg-white hover:bg-slate-50 text-blue-600 border-2 border-blue-100 px-6 py-4 rounded-2xl font-black flex items-center gap-2 shadow-lg transition-all group whitespace-nowrap"
+                                       >
+                                          移动端 <Smartphone size={20} className="group-hover:scale-110 transition-transform" />
                                        </button>
                                        <div className="text-xs text-slate-400 font-mono">
                                          状态: <span className="text-emerald-500 font-bold">体验版</span>
