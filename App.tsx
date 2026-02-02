@@ -88,6 +88,11 @@ import jiudianFenshen from './image/jiudianfenshen.png';
 import fuzhudaoyouImg from './image/fuzhudaoyou1.png';
 import fuzhukefuImg from './image/fuzhukefu1.png';
 import xuniyuangongImg from './image/xuniyuangong2.png';
+import qinziImg from './image/qinzi.png';
+import healthImg from './image/health.png';
+import hxxImg from './image/hxx.png';
+import appQrCode from './image/app.png';
+import xuanchuanImg from './image/xuanchuan.png';
 
 // Import image2 resources
 import xingchengdaoruImg from './image2/xingchengdaoru.png';
@@ -107,6 +112,10 @@ import zongjieImg from './image2/zongjie.png';
 import zongjie1Img from './image2/zongjie1.png';
 import lingquan1Img from './image2/lingquan1.png';
 import lingquan2Img from './image2/lingquan2.png';
+import yuangongImg from './image2/员工.png';
+import guanliImg from './image2/管理.png';
+import gerenFeiyiImg from './image2/个人非遗.png';
+import gerenLazijiImg from './image2/个人辣子鸡.png';
 
 // --- MOBILE APP WRAPPER ---
 const MobileWrapper: React.FC<{ children: React.ReactNode; onBack: () => void; rightContent?: React.ReactNode }> = ({ children, onBack, rightContent }) => (
@@ -398,8 +407,9 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentDesign, setCurrentDesign] = useState<'xiaoxi' | 'agency' | 'spot' | 'living' | 'gov' | 'hotel' | 'dining' | 'org' | 'func' | 'role'>('xiaoxi');
   const [activeOrgTab, setActiveOrgTab] = useState<'saas' | 'portal' | 'marketplace'>('saas');
-  const [activeRoleTab, setActiveRoleTab] = useState<'assistant' | 'digital_employee'>('assistant');
-  const [activeFuncTab, setActiveFuncTab] = useState<'decision' | 'assistant'>('decision');
+  const [activeRoleTab, setActiveRoleTab] = useState<'assistant' | 'digital_employee' | 'low_cost_virtual_employee'>('digital_employee');
+  const [activeFuncTab, setActiveFuncTab] = useState<'staff' | 'management'>('staff');
+  const [activeXiaoxiTab, setActiveXiaoxiTab] = useState<'stage' | 'proactive'>('stage');
 
   const openExternal = (url: string) => window.open(url, '_blank', 'noopener,noreferrer');
 
@@ -446,7 +456,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
               <div className="bg-gradient-to-b from-blue-500 to-indigo-600 p-6 rounded-2xl shadow-xl shadow-indigo-200 border-b-4 border-indigo-800 transform hover:scale-105 transition-transform duration-500">
                 <img src={huangxiaoxiImg2} alt="黄小西" className="w-16 h-16 mx-auto mb-2 rounded-full border-2 border-white/50" />
                 <h4 className="text-white font-black text-lg">黄小西</h4>
-                <p className="text-indigo-100 text-[10px] mt-1">统一入口与总调度，负责全局层面的多智能体协同</p>
+                <p className="text-indigo-100 text-xs mt-1">超级入口与总调度</p>
               </div>
               {/* 连接线 */}
               <div className="absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-indigo-500 to-transparent"></div>
@@ -523,7 +533,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
 
           {/* Right Side Content Panel */}
           <div 
-            className={`absolute right-0 top-0 w-[1100px] h-full transition-all duration-700 ease-in-out ${isExpanded ? 'opacity-100 translate-x-0 -translate-y-10' : 'opacity-0 translate-x-12 translate-y-0 pointer-events-none'}`}
+            className={`absolute right-0 top-0 w-[1100px] h-full transition-all duration-700 ease-in-out z-[100] ${isExpanded ? 'opacity-100 translate-x-0 -translate-y-10' : 'opacity-0 translate-x-12 translate-y-0 pointer-events-none'}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="bg-white/90 backdrop-blur-xl rounded-[3rem] p-6 border border-white shadow-2xl h-[780px] overflow-y-auto no-scrollbar relative">
@@ -534,7 +544,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                   <ArrowRight size={20} />
                </button>
 
-               <div className={`grid ${currentDesign === 'func' ? 'grid-cols-1' : 'grid-cols-1 xl:grid-cols-[380px_1fr]'} gap-6 animate-in slide-in-from-right-12 duration-700`}>
+               <div className="grid grid-cols-1 xl:grid-cols-[380px_1fr] gap-6 animate-in slide-in-from-right-12 duration-700">
                   {/* Text Content */}
                   <div className="space-y-8">
                      {currentDesign === 'org' && (
@@ -576,21 +586,44 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
 
                      {currentDesign === 'xiaoxi' && (
                         <>
-                           <h3 className="text-2xl font-black text-teal-600 flex items-center gap-3"><Bot size={28}/> 多彩黄小西 · C端伴游</h3>
-                           <p className="text-slate-500 text-lg leading-relaxed">核心目标是将其从行程规划问答式工具，升级为集“行程管理、主动提醒、服务调度”于一体的贵州省级的全旅程陪伴数字生命体。——不以订票为核心目标，而是一个数字导游，随时随地站在游客身边帮他提供服务。</p>
+                           <h3 className="text-2xl font-black text-teal-600 flex items-center gap-3 whitespace-nowrap"><Bot size={28}/> 黄小西·贵州旅游行程服务总入口</h3>
+                           <p className="text-slate-500 text-lg leading-relaxed">核心目标是将其从行程规划问答式工具，升级为集“行程管理、主动提醒、服务调度”于一体的贵州全旅程陪伴数字生命体。</p>
                            <ul className="space-y-4">
-                              <DesignFeature icon={LifeBuoy} t="侦察需求式的智能体（主动服务）" d="实时捕捉游客潜在需求，动态生成个性化行程卡片，实现从‘搜攻略’到‘等服务’的体验升级。" />
-                              <DesignFeature icon={Heart} t="旅游专业数字分身（协同调度）" d="构建由多个垂直领域智能体组成的数字分身矩阵，提供覆盖行前、行中、行后的全生命周期陪伴。" />
+                              <DesignFeature
+                                 icon={Heart}
+                                 t="首页即智能体“舞台”"
+                                 d="从传统的“功能驱动”和“引导词驱动”转向“智能体驱动”，背后是贵州的旅游市场主体和从业者的数字分身"
+                                 active={activeXiaoxiTab === 'stage'}
+                                 onClick={() => setActiveXiaoxiTab('stage')}
+                              />
+                              <DesignFeature
+                                 icon={LifeBuoy}
+                                 t="从“响应需求”转向“预判需求”（主动式服务）"
+                                 d="实时捕捉游客潜在需求，动态生成个性化行程卡片，实现从‘搜攻略’到‘等服务’的体验升级"
+                                 active={activeXiaoxiTab === 'proactive'}
+                                 onClick={() => setActiveXiaoxiTab('proactive')}
+                              />
+                              <DesignFeature
+                                 icon={Users}
+                                 t="人人可宣传，人人可分发"
+                                 d="旨在为全贵州人打造一个融合个人身份展示与贵州文旅传播的智能服务"
+                                 active={activeXiaoxiTab === 'distribution'}
+                                 onClick={() => setActiveXiaoxiTab('distribution')}
+                              />
                            </ul>
                            <div className="flex flex-col gap-6 pt-4">
-                              <button onClick={() => handleEnterApp('tourist')} className="w-full bg-teal-600 hover:bg-teal-700 text-white px-8 py-5 rounded-2xl font-black shadow-xl transition-all active:scale-95 text-lg">
-                                 进入游客端演示
-                              </button>
-                              <div className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-all" onClick={() => setActiveQrCode(hxxQrCode)}>
-                                 <img src={hxxQrCode} alt="扫码体验" className="w-24 h-24 rounded-xl object-cover" />
+                              <div className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-all" onClick={() => setActiveQrCode(appQrCode)}>
+                                 <img src={appQrCode} alt="扫码下载APP" className="w-24 h-24 rounded-xl object-cover" />
                                  <div>
-                                    <div className="font-bold text-slate-800 text-lg">扫码体验</div>
-                                    <div className="text-xs text-slate-400 mt-1">支持 iOS / Android / 微信小程序</div>
+                                    <div className="font-bold text-slate-800 text-lg">扫码下载APP</div>
+                                    <div className="text-xs text-slate-400 mt-1">点击可放大二维码</div>
+                                 </div>
+                              </div>
+                              <div className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-all" onClick={() => setActiveQrCode(hxxQrCode)}>
+                                 <img src={hxxQrCode} alt="扫码体验小程序" className="w-24 h-24 rounded-xl object-cover" />
+                                 <div>
+                                    <div className="font-bold text-slate-800 text-lg">扫码体验小程序</div>
+                                    <div className="text-xs text-slate-400 mt-1">点击可放大二维码</div>
                                  </div>
                               </div>
                            </div>
@@ -778,13 +811,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                                 核心价值 (点击切换预览)
                               </h4>
                               <ul className="space-y-2">
-                                 <DesignFeature 
-                                   icon={UserCheck} 
-                                   t="辅助旅游从业人员" 
-                                   d="作为从业者的“数字助手”，提供专业知识支持、方案快速生成与任务协同。" 
-                                   active={activeRoleTab === 'assistant'}
-                                   onClick={() => setActiveRoleTab('assistant')}
-                                 />
+
                                  <DesignFeature 
                                    icon={Clock} 
                                    t="24小时在线数字员工" 
@@ -792,6 +819,41 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                                    active={activeRoleTab === 'digital_employee'}
                                    onClick={() => setActiveRoleTab('digital_employee')}
                                    demoUrl="http://117.187.1.7:58811/digital-twin/"
+                                 />
+                                 <DesignFeature 
+                                   icon={Wallet} 
+                                   t="低成本“招聘”虚拟员工" 
+                                   d="用大模型激活专业领域知识，为企业打造类似两会助手、亲子陪伴等虚拟员工，提升游客体验，赋能企业运营" 
+                                   active={activeRoleTab === 'low_cost_virtual_employee'}
+                                   onClick={() => setActiveRoleTab('low_cost_virtual_employee')}
+                                 />
+                              </ul>
+                           </div>
+                        </>
+                     )}
+
+                     {currentDesign === 'func' && (
+                        <>
+                           <h3 className="text-2xl font-black text-teal-600 flex items-center gap-3"><Cpu size={28}/> 功能智能体</h3>
+                           <p className="text-slate-500 text-lg leading-relaxed">原子化服务能力集</p>
+                           <div className="bg-slate-50 rounded-3xl p-4 border border-slate-100">
+                              <h4 className="font-bold text-slate-800 mb-4 px-3 flex items-center gap-2 text-sm uppercase tracking-widest text-slate-400">
+                                 能力方向 (点击切换预览)
+                              </h4>
+                              <ul className="space-y-2">
+                                 <DesignFeature
+                                    icon={UserCheck}
+                                    t="辅助旅游从业人员"
+                                    d="数字化助手 · 专业知识支持 · 方案快速生成"
+                                    active={activeFuncTab === 'staff'}
+                                    onClick={() => setActiveFuncTab('staff')}
+                                 />
+                                 <DesignFeature
+                                    icon={Building2}
+                                    t="赋能经营管理"
+                                    d="数据洞察 · 运营调度 · 决策支持"
+                                    active={activeFuncTab === 'management'}
+                                    onClick={() => setActiveFuncTab('management')}
                                  />
                               </ul>
                            </div>
@@ -986,35 +1048,7 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                      {currentDesign === 'role' && (
                         <div className="w-full flex flex-col items-center animate-in fade-in slide-in-from-right-10 duration-500">
                            <div className="bg-white/50 backdrop-blur-sm rounded-[2.5rem] p-8 border border-white/40 shadow-2xl w-full max-w-[800px]">
-                              {activeRoleTab === 'assistant' && (
-                                 <div className="flex flex-col items-center gap-8 animate-in fade-in slide-in-from-right-8 duration-500">
-                                    <div className="grid grid-cols-2 gap-6 w-full max-w-[700px]">
-                                       <div className="bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm group">
-                                          <ImageWithLoader 
-                                             src={fuzhudaoyouImg} 
-                                             alt="辅助导游" 
-                                             className="w-full h-auto" 
-                                             priority="high"
-                                          />
-                                       </div>
-                                       <div className="bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm group">
-                                          <ImageWithLoader 
-                                             src={fuzhukefuImg} 
-                                             alt="辅助客服" 
-                                             className="w-full h-auto" 
-                                             priority="high"
-                                          />
-                                       </div>
-                                    </div>
-                                    <div className="text-center space-y-3">
-                                       <h4 className="text-3xl font-black text-slate-800">辅助旅游从业人员</h4>
-                                       <p className="text-violet-600 font-bold text-lg">数字化助手 · 专业知识支持 · 方案快速生成</p>
-                                       <p className="text-slate-500 leading-relaxed max-w-2xl">
-                                          为导游、线路设计师等从业者提供实时的专业知识库支持，辅助快速生成行程方案，并实现多方任务的高效协同。
-                                       </p>
-                                    </div>
-                                 </div>
-                              )}
+
 
                               {activeRoleTab === 'digital_employee' && (
                                  <div className="flex flex-col items-center gap-8 animate-in fade-in slide-in-from-right-8 duration-500">
@@ -1042,6 +1076,42 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                                     </button>
                                  </div>
                               )}
+
+                              {activeRoleTab === 'low_cost_virtual_employee' && (
+                                 <div className="flex flex-col items-center gap-8 animate-in fade-in slide-in-from-right-8 duration-500">
+                                    <div className="flex flex-col lg:flex-row items-center justify-center gap-6 w-full">
+                                       <div className="bg-white border-[12px] border-slate-900 rounded-[3.5rem] w-[300px] h-[650px] shadow-2xl overflow-hidden relative isolate shrink-0">
+                                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-900 rounded-b-xl z-50"></div>
+                                          <div className="flex flex-col h-full bg-slate-50 relative overflow-hidden rounded-[2.5rem]">
+                                             <ImageWithLoader
+                                                src={healthImg}
+                                                alt="健康小妙招"
+                                                className="w-full h-full"
+                                                priority="high"
+                                                objectFit="cover"
+                                             />
+                                          </div>
+                                       </div>
+
+                                       <div className="bg-white border-[12px] border-slate-900 rounded-[3.5rem] w-[300px] h-[650px] shadow-2xl overflow-hidden relative isolate shrink-0">
+                                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-900 rounded-b-xl z-50"></div>
+                                          <div className="flex flex-col h-full bg-slate-50 relative overflow-hidden rounded-[2.5rem]">
+                                             <ImageWithLoader
+                                                src={qinziImg}
+                                                alt="亲子陪伴"
+                                                className="w-full h-full"
+                                                priority="high"
+                                                objectFit="cover"
+                                             />
+                                          </div>
+                                       </div>
+                                    </div>
+
+                                    <div className="text-center">
+                                       <p className="text-indigo-600 font-bold text-lg">可按需快速搭建·可规模化复制；</p>
+                                    </div>
+                                 </div>
+                              )}
                            </div>
                            <div className="mt-8 text-center space-y-2">
                               <div className="text-2xl font-black text-slate-800">角色智能体 · 数字化转型的新劳动力</div>
@@ -1052,27 +1122,53 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
 
                      {currentDesign === 'xiaoxi' && (
                         <div className="w-full h-full flex items-center justify-center p-8 animate-in fade-in duration-500">
-                           <div className="flex gap-12 items-start justify-center w-full max-w-[1200px] scale-[0.75]">
-                              {/* Left: Mobile Phone Frame */}
-                              <div className="bg-white border-[12px] border-slate-900 rounded-[3.5rem] w-[320px] h-[750px] shadow-2xl overflow-hidden relative isolate shrink-0">
-                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-900 rounded-b-xl z-50"></div>
-                                 <div className="flex flex-col h-full bg-slate-50 relative overflow-hidden rounded-[2.5rem] transform-gpu">
-                                    <Header userRole="tourist" onToggleRole={() => {}} className="rounded-t-[2.5rem]" />
-                                    <main className="flex-1 overflow-y-auto no-scrollbar px-2 relative">
-                                       <div className="scale-95 origin-top w-full">
-                                          <HomeView onOpenExperts={() => {}} />
-                                       </div>
-                                    </main>
-                                    <BottomNav activeTab={0} onTabChange={() => {}} isMenuOpen={false} onToggleMenu={() => {}} />
+                           <div className="bg-white/50 backdrop-blur-sm rounded-[2.5rem] border border-white/40 shadow-2xl w-full max-w-[1050px] overflow-hidden">
+                              {activeXiaoxiTab === 'stage' ? (
+                                 <div
+                                    className="bg-white border-[12px] border-slate-900 rounded-[3.5rem] w-[320px] h-[650px] shadow-2xl overflow-hidden relative isolate shrink-0 mx-auto my-8 cursor-pointer"
+                                    onClick={() => openExternal('https://arifinfirman788-blip.github.io/HuangxiaoxiV4.0/')}
+                                 >
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-900 rounded-b-xl z-50"></div>
+                                    <div className="flex flex-col h-full bg-slate-50 relative overflow-hidden rounded-[2.5rem]">
+                                       <ImageWithLoader src={hxxImg} alt="多彩黄小西" className="w-full h-full" priority="high" objectFit="cover" />
+                                    </div>
                                  </div>
-                              </div>
-
-                              {/* Right: Business Process Area Preview */}
-                              <div className="flex-1 overflow-y-auto no-scrollbar h-[750px]">
-                                 <div className="h-full">
-                                    <BusinessProcessArea />
-                                 </div>
-                              </div>
+                              ) : activeXiaoxiTab === 'distribution' ? (
+                                  <div className="w-full h-full flex items-center justify-center p-8 relative overflow-hidden">
+                                     <div className="relative w-full max-w-[800px] h-[700px] flex items-center justify-center">
+                                        {/* Back Image (Left) */}
+                                        <div className="absolute left-1/2 -translate-x-[60%] top-1/2 -translate-y-1/2 w-[340px] h-auto z-10 transition-transform hover:z-30 hover:scale-105 duration-500">
+                                           <ImageWithLoader
+                                              src={gerenFeiyiImg}
+                                              alt="个人非遗"
+                                              className="w-full h-auto rounded-[2.5rem] shadow-2xl border-[8px] border-slate-900 bg-white"
+                                              priority="high"
+                                              objectFit="contain"
+                                           />
+                                        </div>
+                                        {/* Front Image (Right) */}
+                                        <div className="absolute left-1/2 -translate-x-[40%] top-1/2 -translate-y-1/2 translate-x-[10%] w-[340px] h-auto z-20 transition-transform hover:z-30 hover:scale-105 duration-500">
+                                           <ImageWithLoader
+                                              src={gerenLazijiImg}
+                                              alt="个人辣子鸡"
+                                              className="w-full h-auto rounded-[2.5rem] shadow-2xl border-[8px] border-slate-900 bg-white"
+                                              priority="high"
+                                              objectFit="contain"
+                                           />
+                                        </div>
+                                     </div>
+                                  </div>
+                               ) : (
+                                <div className="flex justify-center p-8">
+                                   <ImageWithLoader
+                                      src={lingdongdaoImg}
+                                      alt="灵动导览"
+                                      className="w-full max-w-[650px] h-auto rounded-[2rem] shadow-2xl border border-white/40 bg-white/30"
+                                      priority="high"
+                                      objectFit="contain"
+                                   />
+                                </div>
+                              )}
                            </div>
                         </div>
                      )}
@@ -1237,106 +1333,34 @@ const MatrixDiagram = ({ onNavigate, onAgentClick, setActiveQrCode, handleEnterA
                      )}
 
                      {currentDesign === 'func' && (
-                        <div className="w-full animate-in fade-in slide-in-from-right-10 duration-500 space-y-10">
-                           <div className="flex flex-col gap-5 pb-6 border-b border-slate-100">
-                              <div className="flex items-center gap-5">
-                                 <div className="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center text-teal-600 shadow-lg shadow-teal-100/50 shrink-0">
-                                    <Cpu size={36} />
-                                 </div>
-                                 <div>
-                                    <h3 className="text-xl font-black text-teal-600">功能智能体</h3>
-                                    <div className="flex items-center gap-3 mt-1.5">
-                                       <span className="text-slate-400 text-xs uppercase tracking-[0.2em] font-bold">Atomic Function Agents</span>
-                                       <div className="w-1 h-1 rounded-full bg-slate-300"></div>
-                                       <span className="text-teal-600/60 text-xs font-bold">原子化服务能力集</span>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div className="max-w-2xl">
-                                 <p className="text-slate-500 text-sm leading-relaxed font-medium">
-                                    专注于文旅场景中的原子化功能模块。通过多维感知游客意图，自动组合交通、餐饮、门票等插件，生成可交互、可执行的实时行程方案。
-                                 </p>
-                              </div>
-                           </div>
-
-                           <div className="flex justify-center">
-                              <div className="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1">
-                                  <button 
-                                      onClick={() => setActiveFuncTab('decision')}
-                                      className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${activeFuncTab === 'decision' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-200/50'}`}
-                                  >
-                                      <div className={`w-2 h-2 rounded-full ${activeFuncTab === 'decision' ? 'bg-teal-500' : 'bg-slate-300'}`}></div>
-                                      智能决策与分析
-                                  </button>
-                                  <button 
-                                      onClick={() => setActiveFuncTab('assistant')}
-                                      className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${activeFuncTab === 'assistant' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-200/50'}`}
-                                  >
-                                      <div className={`w-2 h-2 rounded-full ${activeFuncTab === 'assistant' ? 'bg-indigo-500' : 'bg-slate-300'}`}></div>
-                                      辅助旅游从业人员
-                                  </button>
-                              </div>
-                           </div>
-
-                           <div className="min-h-[400px]">
-                              {activeFuncTab === 'decision' && (
-                                 <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
-                                    <div className="text-sm font-black uppercase tracking-[0.4em] text-emerald-600 flex items-center gap-3">
-                                       <div className="w-2.5 h-2.5 rounded-full bg-emerald-600"></div>
-                                       智能决策与分析支撑
-                                       <div className="flex-1 h-px bg-slate-100 ml-3"></div>
-                                    </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                       {[
-                                          { n: 'BI 业务实时看板', i: BarChart3, d: '基于真实交易数据的 AI 辅助决策' },
-                                          { n: '智能营销触发器', i: Zap, d: '根据库存自动触发优惠投放' },
-                                          { n: '舆情监控插件', i: Search, d: '全网评价研判与应对建议生成' }
-                                       ].map((item, i) => (
-                                          <div key={i} className="flex flex-col gap-4 p-6 rounded-[2.5rem] bg-white border border-slate-100 hover:border-teal-500/30 hover:shadow-xl hover:shadow-teal-900/5 transition-all cursor-pointer group relative isolate overflow-hidden">
-                                             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-teal-50/50 to-transparent -z-10 rounded-bl-[3rem]"></div>
-                                             <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform shadow-sm">
-                                                <item.i size={24} />
-                                             </div>
-                                             <div className="space-y-2">
-                                                <div className="text-lg font-black text-slate-800 group-hover:text-teal-600 transition-colors whitespace-nowrap">{item.n}</div>
-                                                <div className="text-xs text-slate-500 leading-relaxed font-medium">{item.d}</div>
-                                             </div>
-                                          </div>
-                                       ))}
-                                    </div>
-                                 </div>
-                              )}
-
-                              {activeFuncTab === 'assistant' && (
-                                 <div className="flex flex-col items-center gap-8 animate-in fade-in slide-in-from-right-4 duration-300">
-                                    <div className="grid grid-cols-2 gap-6 w-full max-w-[700px]">
-                                       <div className="bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm group">
-                                          <ImageWithLoader 
-                                             src={fuzhudaoyouImg} 
-                                             alt="辅助导游" 
-                                             className="w-full h-auto" 
-                                             priority="high"
-                                          />
-                                       </div>
-                                       <div className="bg-slate-50 rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm group">
-                                          <ImageWithLoader 
-                                             src={fuzhukefuImg} 
-                                             alt="辅助客服" 
-                                             className="w-full h-auto" 
-                                             priority="high"
-                                          />
+                        <div className="w-full flex items-center justify-center">
+                           {activeFuncTab === 'staff' && (
+                              <div className="w-full flex flex-col items-center gap-8 animate-in fade-in slide-in-from-right-4 duration-300">
+                                 <p className="text-indigo-600 font-bold text-lg text-center">数字化助手 · 专业知识支持 · 方案快速生成</p>
+                                 <div className="flex flex-wrap items-center justify-center gap-6">
+                                    <div className="bg-white border-[12px] border-slate-900 rounded-[3.5rem] w-[300px] h-[650px] shadow-2xl overflow-hidden relative isolate shrink-0">
+                                       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-900 rounded-b-xl z-50"></div>
+                                       <div className="flex flex-col h-full bg-slate-50 relative overflow-hidden rounded-[2.5rem]">
+                                          <ImageWithLoader src={xuanchuanImg} alt="宣发资料" className="w-full h-full" priority="high" objectFit="cover" />
                                        </div>
                                     </div>
-                                    <div className="text-center space-y-3">
-                                       <h4 className="text-3xl font-black text-slate-800">辅助旅游从业人员</h4>
-                                       <p className="text-indigo-600 font-bold text-lg">数字化助手 · 专业知识支持 · 方案快速生成</p>
-                                       <p className="text-slate-500 leading-relaxed max-w-2xl">
-                                          为导游、线路设计师等从业者提供实时的专业知识库支持，辅助快速生成行程方案，并实现多方任务的高效协同。
-                                       </p>
+                                    <div className="bg-white border-[12px] border-slate-900 rounded-[3.5rem] w-[300px] h-[650px] shadow-2xl overflow-hidden relative isolate shrink-0">
+                                       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-900 rounded-b-xl z-50"></div>
+                                       <div className="flex flex-col h-full bg-slate-50 relative overflow-hidden rounded-[2.5rem]">
+                                          <ImageWithLoader src={yuangongImg} alt="员工助手" className="w-full h-full" priority="high" objectFit="cover" />
+                                       </div>
                                     </div>
                                  </div>
-                              )}
-                           </div>
+                              </div>
+                           )}
+
+                           {activeFuncTab === 'management' && (
+                              <div className="w-full flex flex-col items-center gap-8 animate-in fade-in slide-in-from-right-4 duration-300">
+                                 <div className="w-full max-w-[900px] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/60 bg-white/70 backdrop-blur-sm">
+                                    <ImageWithLoader src={guanliImg} alt="经营管理" className="w-full h-auto" priority="high" objectFit="contain" />
+                                 </div>
+                              </div>
+                           )}
                         </div>
                      )}
                   </div>
@@ -1605,7 +1629,7 @@ const App: React.FC = () => {
                      <img src={huangxiaoxiImg1} alt="Logo" className="w-16 h-16 object-contain" />
                      <div className="flex flex-col">
                         <span className="text-2xl font-black tracking-tight text-slate-900 leading-none">贵旅数网</span>
-                        <span className="text-indigo-600 text-xs font-bold tracking-[0.2em] mt-1.5 uppercase">2026年1月12日</span>
+                        <span className="text-indigo-600 text-xs font-bold tracking-[0.2em] mt-1.5 uppercase">2026年02月02日</span>
                      </div>
                   </div>
                   <div className="flex items-center gap-1 bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200">
@@ -2659,23 +2683,20 @@ const App: React.FC = () => {
 
                             {designTab === 'xiaoxi' && (
                                <div className="animate-in slide-in-from-left-4">
-                                  <h3 className="text-xl font-black text-teal-600 mb-6 flex items-center gap-3"><Bot size={24}/> 多彩黄小西 · C端伴游</h3>
-                                  <p className="text-slate-500 text-lg leading-relaxed mb-10">核心目标是将其从行程规划问答式工具，升级为集“行程管理、主动提醒、服务调度”于一体的贵州省级的全旅程陪伴数字生命体。——不以订票为核心目标，而是一个数字导游，随时随地站在游客身边帮他提供服务。</p>
+                                 <h3 className="text-xl font-black text-teal-600 mb-6 flex items-center gap-3 whitespace-nowrap"><Bot size={24}/> 黄小西·贵州旅游行程服务总入口</h3>
+                                 <p className="text-slate-500 text-lg leading-relaxed mb-10">核心目标是将其从行程规划问答式工具，升级为集“行程管理、主动提醒、服务调度”于一体的贵州全旅程陪伴数字生命体。</p>
                                   
                                   <ul className="space-y-4 mb-10">
-                                     <DesignFeature icon={LifeBuoy} t="侦察需求式的智能体（主动服务）" d="实时捕捉游客潜在需求，动态生成个性化行程卡片，实现从‘搜攻略’到‘等服务’的体验升级。" />
-                                     <DesignFeature icon={Heart} t="旅游专业数字分身（协同调度）" d="构建由多个垂直领域智能体组成的数字分身矩阵，提供覆盖行前、行中、行后的全生命周期陪伴。" />
+                                     <DesignFeature icon={Heart} t="首页即智能体“舞台”" d="从传统的“功能驱动”和“引导词驱动”转向“智能体驱动”，背后是贵州的旅游市场主体和从业者的数字分身" />
+                                     <DesignFeature icon={LifeBuoy} t="从“响应需求”转向“预判需求”（主动式服务）" d="实时捕捉游客潜在需求，动态生成个性化行程卡片，实现从‘搜攻略’到‘等服务’的体验升级" />
                                   </ul>
 
                                   <div className="flex flex-wrap gap-6 items-center">
-                                     <button onClick={() => handleEnterApp('tourist')} className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-2xl font-black shadow-xl">
-                                        进入游客端演示
-                                     </button>
-                                     <div className="flex items-center gap-3 p-2 bg-white rounded-xl border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-all" onClick={() => setActiveQrCode(hxxQrCode)}>
-                                        <img src={hxxQrCode} alt="扫码体验" className="w-20 h-20 rounded-lg object-cover" />
+                                     <div className="flex items-center gap-3 p-2 bg-white rounded-xl border border-slate-100 shadow-sm cursor-pointer hover:shadow-md transition-all" onClick={() => setActiveQrCode(appQrCode)}>
+                                        <img src={appQrCode} alt="扫码下载APP" className="w-20 h-20 rounded-lg object-cover" />
                                         <div className="text-xs text-slate-500 font-medium">
-                                           <div className="font-bold text-slate-800">扫码体验</div>
-                                           <div className="text-[10px] text-slate-400 mt-1">iOS / Android</div>
+                                           <div className="font-bold text-slate-800">扫码下载APP</div>
+                                           <div className="text-[10px] text-slate-400 mt-1">点击可放大二维码</div>
                                         </div>
                                      </div>
                                   </div>
